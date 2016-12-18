@@ -1,3 +1,10 @@
+.DS_Store
+R/ipums/*.sav
+R/ipums/*.sav.gz
+api_keys.json
+geography/shp/*
+geography/json/*
+
 # Logs
 logs
 *.log
@@ -35,3 +42,4 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+.Rproj.user
