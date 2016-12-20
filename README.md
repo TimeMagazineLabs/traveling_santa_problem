@@ -5,9 +5,9 @@ How many households in the continental United States does Santa need to visit on
 # Overview
 There are 3,108 counties in the continental United States, and Santa has to visit each one of them, seeing as [92 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas. That divides this problem into two parts:
 
-+ 1. Assuming Santa chiefly delivers to children age 16 and under, how many households--houses, apartments and other residences--does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census tables and reams of microdata from [IPUMS](https://www.ipums.org/), one can produce confident estimates for those figures.
+1. Assuming Santa chiefly delivers to children age 16 and under, how many households--houses, apartments and other residences--does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census tables and reams of microdata from [IPUMS](https://www.ipums.org/), one can produce confident estimates for those figures.
 
-+ 2. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Travelling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers for decades. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor Macbook's processor.
+2. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Travelling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers for decades. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor Macbook's processor.
 
 **And finally:** How does the answer to 1) affect the answer to 2) if Santa wants to optimize delivery time? Should he prioritize high-population counties? If so, how far out of his way should he go?
 
@@ -58,7 +58,7 @@ We need to compute the central point of each county in order to draw a route bet
 
 This script generates both CSV and JSON versions of our centroids. Loading the original SHP files into QGIS and importing the CSV first centroids confirms that this worked!
 
-![counties](geography/data/counties.png) ![states](geography/data/states.png) 
+![counties](./geography/data/counties.png) ![states](./geography/data/states.png) 
 
 Okay, now we have the files in the [geography/data](geography/data) directory -- `county_coordinates.csv` and `state_coordinates.csv`--to take a first pass at the Travelling Santa Problem. We'll mostly be dealing with counties, but it's nice to have states for sanity checks.
 
