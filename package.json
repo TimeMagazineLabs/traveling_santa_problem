@@ -1,0 +1,27 @@
+{
+  "name": "travelling_santa_problem",
+  "version": "0.0.1",
+  "description": "Finding Santa's optimal route",
+  "main": "route.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimeMagazine/travelling_santa_problem.git"
+  },
+  "keywords": [
+    "TSP"
+  ],
+  "author": "Chris Wilson, Dave Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TimeMagazine/travelling_santa_problem/issues"
+  },
+  "homepage": "https://github.com/TimeMagazine/travelling_santa_problem#readme",
+  "dependencies": {
+    "d3": "^4.4.0",
+    "mapshaper": "^0.3.40",
+    "minimist": "^1.2.0"
+  }
+}
