@@ -4,7 +4,9 @@ api_keys.json
 geography/shp/*
 stashed
 data/ACS*
-lib/TSP/
+R/lib/TSP/
+R/packrat/lib*/
+R/route*
 
 # Logs
 logs

@@ -25,6 +25,7 @@ names <- as.character(cities$name)
 # calculating the distance between points in longitude and latitude, not two-dimensional space
 distances_abilene <- spDistsN1(coords, coords[1,], longlat=TRUE)
 
+# contains pairs of counties
 spotcheck <- data.frame(
   cityA = rep(names[1], length(names)), # for now, Abilene is always the first location
   cityB = names,
@@ -32,6 +33,7 @@ spotcheck <- data.frame(
   stringsAsFactors=FALSE
 )
 
+print("Here are the 10 cities on our data closest to Abilene, TX")
 # Here are the top-10 closest cities to Abilene (including itself). Looks like a lot of Texas!
 print(spotcheck[order(spotcheck$distance),][1:10,])
 
@@ -70,4 +72,88 @@ pairs <- pairs[order(pairs$distance),]
 
 # I checked a dozen of these and they look good. Let's get serious. The real
 # Christmas miracle happens in santa_tsp.R
+rm(list=ls())
 
+# COUNTY DISTANCES
+# We also want to make sure the distances between counties, which is what we're actually
+# studying here, is sensible
+
+miles_per_kilometer = 100000 / 2.54 / 12 / 5280
+
+# load the file generated in the setup-phase of the project from a Census map
+counties <- read.csv("../geography/data/county_coordinates.csv",
+  colClasses=c(rep("character", 4), rep("numeric", 3))
+)
+
+coordinates   <- as.matrix(data.frame(long=counties$long, lat=counties$lat))
+counties$name[counties$fips=="35013"] <- "Doña Ana County";
+distances     <- spDists(coordinates, longlat = TRUE) * miles_per_kilometer
+names         <- paste(counties$name, ", ", counties$st, sep="")
+fips          <- counties[c("name", "st", "fips")]
+
+
+# We will examine each county pairing as a sanity check to make sure
+# Adjacent ones generally have shorter distances. But this will create
+# a data frame of 3108^2 (9,659,664) rows, so feel free to take my word for it 
+# You can see the output in the file median_by_proximity.png
+
+
+# condense the distance matrix into a flat table and analyze the 
+# relationship between the counties as a function of nearness 
+pairs <- as.data.frame(distances, names)
+colnames(pairs) <- names
+print("Converting matrix of distances to a data frame.")
+pairs <- cbind(stack(pairs), names)
+colnames(pairs) <- c("distance", "countyA", "countyB")
+  
+# remove dups
+pairs <- subset(pairs, pairs$countyA != pairs$countyB)
+
+# add state columns to the counties
+print("Adding state columns to the county file")
+pairs$stateA <- sub("^(.*), ", "", pairs$countyA)
+pairs$stateB <- sub("^(.*), ", "", pairs$countyB)
+  
+pairs$stateA <- as.character(pairs$stateA)
+pairs$stateB <- as.character(pairs$stateB)
+  
+# we'll upgrade same-state to adjacency where relevant. Downloaded and filled in from here
+# http://www2.census.gov/geo/docs/reference/county_adjacency.txt
+county_adjacency    <- read.csv("../data/county_adjacency.csv", colClasses=rep("character", 4))
+county_adjacency$countyA[county_adjacency$fipsA=="35013"] <- "Doña Ana County, NM";
+county_adjacency$countyB[county_adjacency$fipsB=="35013"] <- "Doña Ana County, NM";
+# remove adjacencies with self
+county_adjacency <- subset(county_adjacency, county_adjacency$fipsA != county_adjacency$fipsB)
+county_adjacency$adjacent <- "adjacent"
+
+# Confirmed all names match
+fips_names <- as.vector(unique(c(county_adjacency$countyA, county_adjacency$countyB)))
+diffs <- setdiff(fips_names, names)
+print(paste("Found", length(diffs), "mismatches in adjacency file."))
+  
+print("Matching adjacencies")
+pairs <- merge(pairs, county_adjacency, by.x=c("countyA", "countyB"), by.y=c("countyA", "countyB"), all.x=TRUE)
+
+#(You're welcome to write `county_pairs` to a CSV, but it will be about 500 MB!)
+  
+pairs$same_state <- NA
+pairs$same_state[pairs$stateA == pairs$stateB] <- "same state"
+  
+pairs$proximity <- pairs$adjacent
+pairs$proximity[is.na(pairs$adjacent) & !is.na(pairs$same_state)] <- "same-state"
+pairs$proximity[is.na(pairs$adjacent) & is.na(pairs$same_state)]  <- "neither"
+  
+values <- c(
+  "adjacent" = median(pairs$distance[pairs$proximity=="adjacent"]),
+  "same-state" = median(pairs$distance[pairs$proximity=="same-state"]),
+  "neither" = median(pairs$distance[pairs$proximity=="neither"])
+)
+
+barplot(values, main="Median Distance By Proximity Type")    
+
+png('analysis/median_by_proximity.png')
+barplot(values, main="Median Distance By Proximity Type")
+dev.off()
+
+rm(list=ls())
+#dev.off(dev.list()["RStudioGD"]) #clear posts

@@ -23,7 +23,7 @@ geojson.features.forEach(county => {
 		name:  info.name,
 		st:    info.st,
 		state: info.state,
-		lng:   centroid[0],
+		long:   centroid[0],
 		lat:   centroid[1],
 		area:  county.properties.ALAND
 	});
@@ -54,7 +54,7 @@ geojson.features.forEach(state => {
 		fips:  state.properties.GEOID,
 		name:  info.name,
 		st:    info.abbr_two_letter,
-		lng:   centroid[0],
+		long:   centroid[0],
 		lat:   centroid[1],
 		area:  state.properties.ALAND
 	});

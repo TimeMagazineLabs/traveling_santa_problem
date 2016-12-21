@@ -5,6 +5,8 @@
 # For spotchecking and proofs of concept. You can either manually install them through the
 # R or RStudio menus or just run the follow commands
 
+roster = rownames(installed.packages())
+
 # A common graphics library for charts and maps. You may already of it.
 # https://cran.r-project.org/web/packages/ggplot2/index.html
 install.packages("ggplot2")
