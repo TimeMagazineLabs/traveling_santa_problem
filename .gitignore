@@ -1,7 +1,7 @@
 .DS_Store
 R/routes
 api_keys.json
-geography/shp/*
+geography/shp/*.*
 stashed
 data/ACS*
 R/lib/TSP/
