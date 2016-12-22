@@ -5,7 +5,7 @@ How many households in the continental United States does Santa need to visit on
 # Overview
 There are 3,108 counties in the continental United States, and Santa has to visit each one of them, seeing as [92 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas. That divides this problem into two parts:
 
-1. Assuming Santa chiefly delivers to children age 16 and under, how many households--houses, apartments and other residences--does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census tables and reams of microdata from [IPUMS](https://www.ipums.org/), one can produce confident estimates for those figures.
+1. Assuming Santa chiefly delivers to children age 15 and under, how many households--houses, apartments and other residences--does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census tables, granular Census tract data, and reams of microdata from [IPUMS](https://www.ipums.org/), we produced a detailed estimate.
 
 2. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Travelling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers for decades. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor Macbook's processor.
 
@@ -27,6 +27,12 @@ To regenerate the geography data that lives in `geography/data`, you just need a
 
 The maps come from the Census Bureau's [Cartographic Boundary Shapefiles](https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html), which we downloaded for both states and counties but didn't add to the repository to avoid extra baggage. To follow our steps, just move to the `geography/shp` directory and pull these two reasonably small files. But first, let's removing the pre-generated files since we're making them again
 
+	cd sources
+	wget http://www2.census.gov/geo/docs/maps-data/data/gazetteer/2016_Gazetteer/2016_Gaz_tracts_national.zip
+	wget http://www2.census.gov/geo/docs/maps-data/data/gazetteer/2016_Gazetteer/2016_Gaz_counties_national.zip
+	unzip -j "2016_Gaz*"
+
+	
 	cd geography/data
 	rm *
 	cd ../shp
@@ -64,6 +70,15 @@ We need to compute the central point of each county in order to draw a route bet
 This script generates both CSV and JSON versions of our centroids. Loading the original SHP files into QGIS and importing the CSV first centroids confirms that this worked!
 
 ![counties](./geography/data/counties.png) ![states](./geography/data/states.png) 
+
+Last, we need to get a head count on every Census tract _within_ each county in order to calculate how long Santa will have to spend there. (We're not going to calculate the distance between these 72,538 tracts, even just within a county.) This just involves grabbing a convenient national Shapefile that has 2010 decennial Census figures baked in. We're only going to be comparing tracts to themselves, so we don't have to worry too much about the fact that this is the most recent data.
+
+	cd shp
+	wget http://www2.census.gov/geo/tiger/TIGER2010DP1/Tract_2010Census_DP1.zip
+	unzip -j Tract_2010Census_DP1.zip
+	shp2json -n Tract_2010Census_DP1.shp > tracts.json
+	cd ../scripts
+	node --max_old_space_size=8192 get_tracts_stream.js
 
 Okay, now we have the files in the [geography/data](geography/data) directory -- `county_coordinates.csv` and `state_coordinates.csv`--to take a first pass at the Travelling Santa Problem. We'll mostly be dealing with counties, but it's nice to have states for sanity checks.
 

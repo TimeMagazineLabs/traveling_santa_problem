@@ -1,0 +1,3 @@
+[submodule "r/lib/census_tables_in_r"]
+	path = r/lib/census_tables_in_r
+	url = https://github.com/TimeMagazine/census_tables_in_r.git

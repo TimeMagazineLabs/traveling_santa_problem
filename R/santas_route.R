@@ -12,7 +12,7 @@ source("lib/utils.R")
 miles_per_kilometer = 100000 / 2.54 / 12 / 5280
 # For land area, which is reported in sq meters. Google confirms 0.000386102
 # https://www.census.gov/geo/reference/state-area.html
-square_miles_per_1000_square_meters = (miles_per_kilometer / 1000) ^ 2 * 1000 
+square_miles_per_square_meters = (miles_per_kilometer / 1000) ^ 2 * 1000 
 
 counties <- read.csv("../geography/data/county_coordinates.csv",
   colClasses=c(rep("character", 4), rep("numeric", 3))

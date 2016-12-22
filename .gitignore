@@ -1,12 +1,12 @@
 .DS_Store
 R/routes
-api_keys.json
-geography/shp/*.*
+shp/*.*
 stashed
-data/ACS*
+sources/*.sav
 R/lib/TSP/
 R/packrat/lib*/
 R/route*
+sources/2016_Gaz*
 
 # Logs
 logs
