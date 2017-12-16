@@ -30,12 +30,12 @@ rl.on('line', function(line) {
 		state_name: " ",
 		county_fips: data[1],
 		county_name: data[3],
-		county_land_sq_m: +data[4],
-		county_water_sq_m: +data[5],
-		county_area_sq_m: +data[4] + +data[5],
+		// county_land_sq_m: +data[4],
+		// county_water_sq_m: +data[5],
+		// county_area_sq_m: +data[4] + +data[5],
 		county_land_sq_mi: +data[6],
-		county_water_sq_mi: +data[7],
-		county_area_sq_mi: +data[6] + +data[7],
+		// county_water_sq_mi: +data[7],
+		// county_area_sq_mi: +data[6] + +data[7],
 		county_lat: +data[8],
 		county_lng: +data[9]
 	}

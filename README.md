@@ -1,19 +1,22 @@
 # The Travelling Santa Problem
 
-How many households in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each on as quickly as possible?
+How many households in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each one as quickly as possible?
 
 # Overview
-There are 3,108 counties in the continental United States, and Santa has to visit each one of them, seeing as [92 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas. That divides this problem into two parts:
+There are 3,108 counties in the continental United States, and Santa has to visit each one of them, seeing as [92 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas. That divides this problem into three parts:
 
 1. Assuming Santa chiefly delivers to children age 15 and under, how many households--houses, apartments and other residences--does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census tables, granular Census tract data, and reams of microdata from [IPUMS](https://www.ipums.org/), we produced a detailed estimate.
 
 2. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Travelling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers for decades. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor Macbook's processor.
 
-**And finally:** How does the answer to 1) affect the answer to 2) if Santa wants to optimize delivery time? Should he prioritize high-population counties? If so, how far out of his way should he go?
+3. **And finally:** How does the answer to 1) affect the answer to 2) if Santa wants to optimize delivery time? Should he prioritize high-population counties? If so, how far out of his way should he go?
 
-Here's how we went about figuring that out. The code in this repository is divided between Node.js for processing files and R for the statistical heavy lifting. While we will document every step taken to produce the data, many of the results of the early steps are including in the repo so that you can skip straight to calculating the route. So all the steps under "Setting Up Shop" are optional. You're welcome to rerun the code to check our work or just log a little practice, but it isn't necessary.
+Here's how we went about figuring that out: The code in this repository is divided between Node.js for processing files and R for the statistical heavy lifting. While we will document every step taken to produce the data, many of the results of the early steps are including in the repo so that you can skip straight to calculating the route. So all the steps under "Setting Up Shop" are optional. You're welcome to rerun the code to check our work or just log a little practice, but it isn't necessary.
 
 # Setting Up Shop
+
+
+
 
 ## Getting the data
 TK
