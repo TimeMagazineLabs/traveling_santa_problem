@@ -21,7 +21,7 @@
   "homepage": "https://github.com/TimeMagazine/travelling_santa_problem#readme",
   "dependencies": {
     "d3": "^4.4.0",
-    "mapshaper": "^0.3.40",
+    "mapshaper": "^0.4.59",
     "shp2json": "^1.2.1"
   }
 }
