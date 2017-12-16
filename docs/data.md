@@ -22,31 +22,36 @@ First, we're going to use `mapshaper` to modify these Shapefiles to exclude Alas
 
 While we're at it, let's generate the topoJSON file of the counties for the visualization:
 
-	mapshaper counties/cb_2016_us_county_20m.shp -filter 'parseInt(STATEFP) <= 56 && STATEFP != "02" && STATEFP != "15"' -filter-fields GEOID -o format=topojson ../geo/counties.topo.json
+	mapshaper counties/cb_2016_us_county_20m.shp -filter 'parseInt(STATEFP) <= 56 && STATEFP != "02" && STATEFP != "15"' -filter-fields GEOID -o format=topojson ../data/counties.topo.json
 	# Output should say "[filter] Retained 3,108 of 3,233 features"
 
-## Centroids
+## Centroids and Population
 
-The next step is to convert the SHP files we just made into a JSON document that contains each county's geographic coordinates, ALAND data, and the geographic center of each location. The `mapshaper` tool conveniently includes the metadata from the original Shapefile for each state.
+The next step is to convert the SHP files we just made into a JSON document that contains each county's geographic coordinates, ALAND data, the geographic center of each location, and the population. The `mapshaper` tool conveniently includes the metadata from the original Shapefile for each state.
 
-	mapshaper counties/counties.shp -o format=geojson ../data/counties.json
+	mapshaper counties/counties.shp -o format=geojson ../data/counties.geo.json
 
-We need to compute the central point of each county in order to draw a route between them. Mosey over to the [scripts/](scripts/) directory and you'll see a Node file called `get_centroids.js`. Running this file will read the GeoJSON file we just created and use D3 to calculate the center point, or "centroid." It will also match the FIPS codes to the Census Bureau's [most recent definitions](https://www.census.gov/geo/reference/codes/cou.html), included here in [sources/fips.json](sources/fips.json) directory, so that we have reliable information for each county. (To wit: Even though that data is mostly baked into the Shapefiles, one can never be too careful in checking that the erstwhile Shannon County, SD has been correctly rebranded as [Oglala Lakota](https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota).)
+### County Data
 
-	cd ../scripts
-	node get_centroids.js
+The Node script that will generate our output will  match the FIPS codes from the GeoJSON file to the Census Bureau's [most recent definitions](https://www.census.gov/geo/reference/codes/cou.html), included here in [sources/fips.json](sources/fips.json) directory, so that we have reliable information for each county. (To wit: Even though that data is mostly baked into the Shapefiles, one can never be too careful in checking that the erstwhile Shannon County, SD has been correctly rebranded as [Oglala Lakota](https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota).)
 
-This script generates both CSV and JSON versions of our centroids. Loading the original SHP files into QGIS and importing the CSV file confirms that this worked.
+### Centroids
 
-## Children
+We need to compute the central point of each county in order to draw a route between them. Our script uses D3's [d3.geoPath](https://github.com/d3/d3/blob/master/API.md#geographies-d3-geo) function to do so.
+
+### Children
 
 To get the number of children in each county by age, we need table "S0101: AGE AND SEX" from the American Community Survey, using the five-year 2012-2016 dataset. This table is included in [/sources](/sources) since it can't be programatically downloaded, but you can view it [here](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/16_5YR/S0101/0100000US.05000.003).
 
-These files can be tedious to work with since you have to manually check that you're using the right fields, but a second script will take care of that.
+These files can be tedious to work with since you have to manually check that you're using the right fields, but the script will take care of that.
 
-	node get_population.js
+## Generating the data
 
-This spits out two new files, `county_population.json` and `county_population.csv`. They include all the information with collected in [scripts/get_centroids.js](scripts/get_centroids.js) plus the total population of the county (just in case we need it) and the number of children nine and under. These file are spot-checked against manual calculations from the Census table.
+Mosey on over to the `scripts` directory and run the Node script that does all of the above:
+
+	node get_counties.js
+
+This spits out two new files, `counties.json` and `counties.csv`. These files are spot-checked against manual calculations from the Census table for the population figures.
 
 ## All set
 We now have the central coordinates and number of children age nine and under in every county in the contiguous United States. Now comes the fun part. Let's head over to [TSP.md](TSP.md);
