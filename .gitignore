@@ -1,4 +1,7 @@
 .DS_Store
+
+sources/*.zip
+sources/counties/*
 R/routes
 shp/*.*
 stashed
@@ -6,7 +9,6 @@ sources/*.sav
 R/lib/TSP/
 R/packrat/lib*/
 R/route*
-sources/2016_Gaz*
 
 # Logs
 logs
