@@ -1,5 +1,7 @@
 library("ggplot2")
+library("maps")
 library("RColorBrewer")
+
 
 get_county_route <- function(coordinates, tour_order) {
   tour_coordinates = coordinates[as.numeric(unlist(tour_order)), ]

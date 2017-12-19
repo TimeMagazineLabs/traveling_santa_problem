@@ -9,7 +9,7 @@ library(TSP)
 source("lib/map_route.R")
 
 counties <- read.csv("../data/counties.csv", 
-  colClasses = c(rep("character", 3), rep("numeric", 5))                     
+  colClasses = c(rep("character", 3), rep("numeric", 6))                     
 )
 
 coords.df <- data.frame(long=counties$long, lat=counties$lat)
@@ -60,7 +60,7 @@ plot_county_tour(counties, tours[["cheapest_insertion"]], "cheapest_insertion", 
 distances <- as.data.frame(list(id="default", distance=Inf), stringsAsFactors = F)
 tours = list()
 
-for (i in 1:2) {
+for (i in 1:5) {
   id = paste("farthest_insertion", i, sep="_");
   print(id);
   tour <- solve_TSP(atsp, method = "farthest_insertion", two_opt=TRUE, rep=3)
@@ -73,10 +73,20 @@ for (i in 1:2) {
 
 shortest <- distances[which.min(distances$distance),"id"]
 
-map = plot_county_tour(counties, tours["farthest_insertion_2"], print_map=T)
-route <- get_county_route(counties, tours["farthest_insertion_2"])
+for (i in 1:5) {
+  id = paste("farthest_insertion", i, sep="_");
+  map = plot_county_tour(counties, tours[id], id, print_map=T)
+  route <- get_county_route(counties, tours[id])
+  write.csv(route, paste("routes/data/", id, ".csv", sep=""), row.names = F)
+  jpeg(paste('routes/maps/', id, '.jpg', sep=""))
+  print(map)
+  dev.off()
+}
 
-write.csv(route[,c()], "routes/data/fi2.csv", row.names = F)
-jpeg('routes/maps/fi2.jpg')
+map = plot_county_tour(counties, tours[shortest], print_map=T)
+route <- get_county_route(counties, tours[shortest])
+
+write.csv(route, paste("routes/data/optimal.csv", sep=""), row.names = F)
+jpeg(paste('routes/maps/optimal.jpg', sep=""))
 print(map)
 dev.off()

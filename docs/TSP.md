@@ -8,13 +8,13 @@ Our task is to compute the *pro bono* salesman Santa Claus' route to each of the
 
 ## Getting to work
 
-We're going to be using [R's TSP package](https://cran.r-project.org/web/packages/TSP/TSP.pdf) to run the calculations. This package offers a variety of possible algorithms for the travelling salesman problem. We're going to use five of them:
+We're going to be using [R's TSP package](https://cran.r-project.org/web/packages/TSP/TSP.pdf) to run the calculations. This package offers a variety of possible algorithms for the travelling salesman problem. We're going to use four of them:
 
 +`"nn"` ("Nearest neighbor"): "The algorithm starts with a tour containing a random city. Then the algorithm always adds to the last city on the tour the nearest not yet visited city." Seems sensible.
 
 + `"nearest_insertion"`: "The nearest insertion algorithm chooses city k in each step as the city which is nearest to a city on the tour." Sounds promising.
 
-+ `"farthest_insertion", "cheapest_insertion", "arbitrary_insertion"`: Like the above but using a different criteria for where to place the next city.
++ `"farthest_insertion", "cheapest_insertion"`: Like the above but using a different criteria for where to place the next city.
 
 (The TSP library also includes two methods that require use of [Concorde](https://en.wikipedia.org/wiki/Concorde_TSP_Solver), an advanced program that is free for academics. It produced the most reliably concise tours when distance is the chief concern, instead of presents, but even with permission, using Concorde involve interfacing with eternal software that cannot be documented or tweaking during development.)
 
@@ -51,6 +51,19 @@ I've also written a function to map the route in the [lib](R/lib) directory.
 
 ## We can do better!
 
+The [travelling_santa.R](../R/travelling_santa.R) script runs the distance matrix through the four methods and includes a mapping function to see you path output, colored to show the progress from beginning to end. This is a great start. But it has a problem: by default, the TSP algorithm returns to the origin. But it doesn't make a lot of sense for Santa to start and end in Maine--we want him to end up in San Diego.
+
+Fortunately, the authors of the TSP library wrote an [extremely detailed paper](https://cran.r-project.org/web/packages/TSP/vignettes/TSP.pdf) outlining different ways to modify the algorithms, including setting start and end points, resembling a [Hamiltonian path](http://mathworld.wolfram.com/HamiltonianPath.html). The script [travelling_santa_one_way.R](../R/travelling_santa_one_way.R) implements their method.
+
+In all tests, the "farthest insertion method" produced the shortest (and most coherent) paths by a significant margin. So this script next runs the distance matrix through that algorithm five times in search of the best solution. *This will probably take several hours.* When it's done, it maps them all and writes both the paths and the maps to the [R/routes](R/routes) directory. The shortest path is also written with the filename "optimal_path."
+
+## Preparing the path for the JavaScript
+
+The last step is to create a file like `counties.csv` but in the order that they appear in the optimal path, along with info on the correct distance between each county and the previous one. This is all accomplished pretty simply in [R/analyze_route.R](R/analyze_route.R), which also converts the units to miles and runs some basic fact-checks. And that's it! It's time to get down to visualization.
+
+# Think you can do better?
+
+We welcome anyone who wants to fork this repository and try another TSP method that shortens Santa's path even further. If you do so, please send me a note at chris.wilson@time.com and cite the resulting article in anything you post. Happy hacking!
 
 
 

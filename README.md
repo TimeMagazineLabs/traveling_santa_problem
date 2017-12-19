@@ -17,6 +17,7 @@ Here's how we went about figuring that out: The code in this repository is divid
 + Santa visits children up to age nine, [when belief in Santa drops off significantly](https://www.theatlantic.com/health/archive/2014/12/when-do-kids-stop-believing-in-santa/383958/).
 + Since [92 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas, Santa will visit that percentage of 0-9-year-olds in each county.
 + It takes Santa a little longer to canvas large counties, putting aside the fact that children are not evenly distributed across the region.
++ Santa begins in Aroostook County, Maine, the northeastern-most county in the continental U.S., and ends up in San Diego, the southwestern-most county.
 
 The documentation is divided into several parts:
 + [Setting up Shop](docs/data.md): Complete documentation on how the source data was collected. You're welcome to browse through this, but the resulting files are included in the repo. All code using Node.js and the command line.
