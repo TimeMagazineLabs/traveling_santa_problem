@@ -1,0 +1,122 @@
+{
+  "1": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/New_York"
+  },
+  "2": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/Chicago"
+  },
+  "3": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Detroit"
+  },
+  "4": {
+    "hours": "-07:00",
+    "offset": -7,
+    "abbr": "MST",
+    "name": "America/Boise"
+  },
+  "5": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Indiana/Vincennes"
+  },
+  "6": {
+    "hours": "-07:00",
+    "offset": -7,
+    "abbr": "MST",
+    "name": "America/Denver"
+  },
+  "7": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Indiana/Indianapolis"
+  },
+  "8": {
+    "hours": "-08:00",
+    "offset": -8,
+    "abbr": "PST",
+    "name": "America/Los_Angeles"
+  },
+  "9": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Indiana/Marengo"
+  },
+  "10": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/Indiana/Knox"
+  },
+  "11": {
+    "hours": "-07:00",
+    "offset": -7,
+    "abbr": "MST",
+    "name": "America/Phoenix"
+  },
+  "12": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Kentucky/Monticello"
+  },
+  "13": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Indiana/Petersburg"
+  },
+  "14": {
+    "hours": "-08:00",
+    "offset": -8,
+    "abbr": "PST",
+    "name": "America/Vancouver"
+  },
+  "15": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/Menominee"
+  },
+  "16": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/Regina"
+  },
+  "17": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Kentucky/Louisville"
+  },
+  "18": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/Winnipeg"
+  },
+  "19": {
+    "hours": "-05:00",
+    "offset": -5,
+    "abbr": "EST",
+    "name": "America/Toronto"
+  },
+  "20": {
+    "hours": "-06:00",
+    "offset": -6,
+    "abbr": "CST",
+    "name": "America/North_Dakota/Beulah"
+  }
+}

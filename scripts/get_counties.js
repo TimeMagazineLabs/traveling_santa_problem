@@ -1,5 +1,10 @@
 var fs = require("fs");
 var d3 = require("d3");
+var moment = require('moment-timezone');
+var tzlookup = require('tz-lookup');
+
+var timezone_key = 1;
+var timezones = {};
 
 // ACS data
 var children = {};
@@ -30,6 +35,13 @@ geojson.features.forEach(county => {
 		console.error("Couldn't match", county.properties.GEOID);
 	}
 	var centroid = path.centroid(county);
+
+	var timezone = tzlookup(centroid[1], centroid[0]);
+	if (!timezones[timezone]) {
+		timezones[timezone] = timezone_key;
+		timezone_key += 1;
+	}
+
 	counties.push({
 		fips:  county.properties.GEOID,
 		name:  info.name + ", " + info.st,
@@ -37,6 +49,7 @@ geojson.features.forEach(county => {
 		state: info.state,
 		long:   centroid[0],
 		lat:   centroid[1],
+		tz: timezones[timezone],
 		area:  county.properties.ALAND,
 		population: population.total_population,
 		children: Math.round(population.total_population * population.under_five / 100 + population.total_population * population.five_to_nine / 100)
@@ -49,4 +62,22 @@ counties.sort(function(a, b) {
 });
 
 fs.writeFileSync("../data/counties.csv", d3.csvFormat(counties));
-fs.writeFileSync("../data/counties.json", JSON.stringify(counties, null, 2));	
+fs.writeFileSync("../data/counties.json", JSON.stringify(counties, null, 2));
+
+var tzs = {};
+
+d3.entries(timezones).forEach(d => {
+	var date = "2017-12-25T00:00:00.0";
+	var m = moment.tz(date, d.key);
+	var t = m.format();
+	var name = m.format("z");
+	var offset = t.slice(-6);
+	tzs[d.value] = {
+		hours: offset,
+		offset: parseInt(offset),
+		abbr: name,
+		name: d.key
+	}
+});
+
+fs.writeFileSync("../data/timezone_offsets.json", JSON.stringify(tzs, null, 2));

@@ -7,6 +7,10 @@ To regenerate the geography data that lives in `geography/data`, you just need a
 	npm install 			# D3 and a few other libraries we need to compute centroids
 	npm install -g mapshaper 	# neatly converts SHP files to GeoJSON or TopoJSON formats from the command line
 
+You'll also need `wget`, which you may already have. If not, Homebrew to the rescue:
+	
+	brew install wget
+
 The county map comes from the Census Bureau's [Cartographic Boundary Shapefiles](https://www.census.gov/geo/maps-data/data/tiger-cart-boundary.html), which we didn't add to the repository to avoid extra baggage. To follow our steps, use the following steps to download the most granular, up-to-date county SHP file.
 
 	cd sources
@@ -22,7 +26,7 @@ First, we're going to use `mapshaper` to modify these Shapefiles to exclude Alas
 
 While we're at it, let's generate the topoJSON file of the counties for the visualization:
 
-	mapshaper counties/cb_2016_us_county_20m.shp -filter 'parseInt(STATEFP) <= 56 && STATEFP != "02" && STATEFP != "15"' -filter-fields GEOID -o format=topojson ../data/counties.topo.json
+	mapshaper counties/cb_2016_us_county_20m.shp name=counties -filter 'parseInt(STATEFP) <= 56 && STATEFP != "02" && STATEFP != "15"' -filter-fields GEOID -o format=topojson ../data/counties.topo.json
 	# Output should say "[filter] Retained 3,108 of 3,233 features"
 
 ## Centroids and Population

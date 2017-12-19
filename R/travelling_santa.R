@@ -1,9 +1,10 @@
-install.packages("sp")
-library("ggplot2")
-install.packages("TSP")
+#install.packages("sp")
+#install.packages("TSP")
 
 library(sp)
 library(TSP)
+
+source("lib/map_route.R")
 
 counties <- read.csv("../data/counties.csv", 
   colClasses = c(rep("character", 3), rep("numeric", 5))                     
@@ -13,49 +14,39 @@ coords.df <- data.frame(long=counties$long, lat=counties$lat)
 coords.mx <- as.matrix(coords.df)
 dist.mx <- spDists(coords.mx, longlat=TRUE)
 labels <- counties$name
-
-tsp <- TSP(dist.mx, labels=labels)
+attr(dist.mx, "Labels") <- labels
 
 # 1145 is the index of Aroostook County, Maine
-tour <- solve_TSP(tsp, method = "nn", start = 1145)
+START_INDEX = as.integer(1145)
 
-# h/t https://uchicagoconsulting.wordpress.com/2011/04/18/how-to-draw-good-looking-maps-in-r/
-plot_county_tour <- function(df, tour_order, title) {
-  # We need the coordinates for the centroids in a data frame. While we could easily convert
-  # `coords`, let's just use the original file from which it was derived. This has the same order 
-  # as coords, which by default is just the locations sorted by FIPS value
-  coordinates <- df
-  
-  # The result of `solve_TSP` is a list of integers listing the index of the locations in the 
-  # order they are to be visited.
-  
-  tour_coordinates = coordinates[as.numeric(tour_order), ]
-  
-  # let's check out our first 10 stops
-  # print(tour_coordinates$name[1:10])
-  
-  # and number the locations in order of their place in the tour
-  tour_coordinates$tour_order <- seq(1:NROW(tour_coordinates))
-  
-  # MAP
-  # Start with state borders
-  all_counties <- map_data("county") # Thanks for including this, ggplot2
-  p <- ggplot()
-  if (!missing(title)) {
-    p <- p + labs(title = title) + theme(plot.title=element_text(hjust=0.5))
+tsp <- TSP(as.dist(dist.mx))
+
+tsp_methods <- c(
+  "nn",
+  "nearest_insertion",
+  "farthest_insertion",
+  "cheapest_insertion"
+)
+
+# number of times to try each method
+NUM_TRIALS = 1
+
+distances <- as.data.frame(list(id="default", distance=Inf), stringsAsFactors = F)
+tours = list()
+
+for (method in tsp_methods) {
+  for (i in 1:NUM_TRIALS) {
+    id = paste(method, i, sep="_");
+    print(id);
+    tour <- solve_TSP(tsp, method = method, start = START_INDEX)
+    performance <- list(id=id, distance=tour_length(tour))
+    distances <- rbind(distances, performance)
+    tours[[id]] = as.numeric(tour)
   }
-  p <- p + geom_polygon( data=all_counties, aes(x=long, y=lat, group = group), colour="black", fill="white")
-  
-  # Plot the centroids. Order doesn't matter, so we can use tour_coordinates
-  # p <- p + geom_point( data=tour_coordinates, aes(x=long, y=lat), color="red", size=0.2)
-  
-  # Plot the path in one fell swoop. Let's color it according to its progress from start to end, red to green
-  p <- p + geom_path(data = tour_coordinates, aes(x= long, y = lat, color=tour_order), size=1) +
-    scale_colour_gradientn( colours = c( "darkblue", "purple", "red"),
-                            breaks  = c( 0, NROW(tour_coordinates) / 2, NROW(tour_coordinates)),
-                            limits  = c( 0, NROW(tour_coordinates)))
-  p <- p + theme(legend.position="none")
-  
-  print(p)
-  return(p)
 }
+
+plot_county_tour(counties, tours[["nn_1"]], "nn_1", print_map=T)
+plot_county_tour(counties, tours[["nearest_insertion_1"]], "nearest_insertion_1", print_map=T)
+plot_county_tour(counties, tours[["farthest_insertion_1"]], "farthest_insertion_1", print_map=T)
+plot_county_tour(counties, tours[["cheapest_insertion_1"]], "cheapest_insertion_1", print_map=T)
+plot_county_tour(counties, tours[["arbitrary_insertion_1"]], "arbitrary_insertion_1", print_map=T)
