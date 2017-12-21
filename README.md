@@ -12,12 +12,14 @@ There are 3,108 counties in the continental United States, and Santa has to visi
 3. **And finally:** What's the minimal amount of time in which Santa can visit each child, based on the data above? We assume he travels at 930 miles per second, which is 0.5% the speed of light.
 
 Here's how we went about figuring that out: The code in this repository is divided between Node.js for producing the data files and R for the statistical heavy lifting. The documentation is divided into several parts:
-+ [Setting up Shop](docs/data.md): Complete documentation on how the source data was collected. You're welcome to browse through this, but the resulting files are included in the repo. All code using Node.js and the command line.
-+ [Travelling Santa](docs/TSP.md): The R code for calculating the optimal route for Santa.
-+ [Rules](docs/rules.md): Guidelines for anyone who wishes to try and do better!
++ [Setting up shop](docs/data.md): Complete documentation on how the source data was collected. You're welcome to browse through this, but the resulting files are included in the repo. All code using Node.js and the command line.
++ [Traveling Santa](docs/TSP.md): The R code for calculating the optimal route for Santa.
 
 # Assumptions
 + Santa visits children up to age nine, [when belief in Santa drops off significantly](https://www.theatlantic.com/health/archive/2014/12/when-do-kids-stop-believing-in-santa/383958/).
 + Since [90 percent of Americans](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/) celebrate Christmas, Santa will visit that percentage of 0-to-9-year-olds in each county.
 + It takes Santa a longer to canvas large or high-population counties, putting aside the fact that children are not evenly distributed across the region.
 + Santa begins in Aroostook County, Maine, the northeastern-most county in the continental U.S., and ends up in San Diego, the southwestern-most county.
+
+# Contest: Beat Our Time!
+We're challenging anyone who wants to come up with a more efficient route between counties and a better way to calculate the distance Santa has to travel within each county. [Here are the guidelines](docs/rules.md) for anyone who wishes to try and do better!
