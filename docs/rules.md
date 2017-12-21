@@ -1,6 +1,6 @@
 #  The Rules
 
-We're eager to see if anyone can produce a more efficient route for Santa to visit each county in the continental U.S. than ours, which takes *2 hours and 3 minutes*. If you think you can beat that, please email a link to your code to Chris Wilson at [chris.wilson@time.com](mailto:chris.wilson@time.com).
+We're eager to see if anyone can produce a more efficient route for Santa to visit each county in the continental U.S. than ours, which takes **2 hours and 3 minutes**. If you think you can beat that, please email a link to your code to Chris Wilson at [chris.wilson@time.com](mailto:chris.wilson@time.com).
 
 + Submissions must be open-source. You may either fork this repo or create your own.
 + You should use the same coordinates for each county as we did, which is available in the [data](../data) directory as `counties.csv` or `counties.json`
