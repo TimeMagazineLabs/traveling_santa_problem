@@ -12,3 +12,4 @@ We're eager to see if anyone can produce a more efficient route for Santa to vis
 + Right now, Santa's travel time is calculated as the [distance in a matrix](https://math.stackexchange.com/questions/2573350/estimating-distance-to-travel-to-each-household-in-a-county) of all the children in 50% of the county's land mass--`sqrt(children * area)`. You may either use this formula or propose a better one.
 + Please include a brief writeup of your approach in the README and a calculation of the total time it takes Santa to visit each child, including a link to the [TIME article](http://time.com/5072619/santa-tracker-christmas-eve/) in anything you post. The time to beat is 2 hours and 3 minutes. Good luck!
 
+To analyze your route, you can load it into the R file [R/analyze_route.R](../R/analyze_route.R) or calculate the result yourself: The sum of the distance of the total route and the distance traveled in each county, divided by velocity.
