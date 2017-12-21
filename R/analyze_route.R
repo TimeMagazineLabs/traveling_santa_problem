@@ -1,11 +1,11 @@
 library(sp)
 
 counties <- read.csv("../data/counties.csv",
-  colClasses = c(rep("character", 3), rep("numeric", 6))                     
+  colClasses = c(rep("character", 2), rep("numeric", 5))                     
 )
 
 route <- read.csv("routes/data/optimal.csv", 
-  colClasses = c(rep("character", 3), rep("numeric", 6))                     
+  colClasses = c(rep("character", 2), rep("numeric", 5))                     
 )
 
 miles_per_kilometer = 0.621371;
@@ -47,6 +47,9 @@ route$children <- round(route$children)
 #print(paste("total distance", prettyNum(sum(route$distance), big.mark=",")))
 print(paste("total children", prettyNum(sum(route$children), big.mark=",")))
 # The Census reports 40,138,328, but they're counting AK, HI and PR
+
+# Let's correct for the number of children who observe Xmas (90%) ahead of time
+route$children <- round(route$children * 0.9)
 
 # We're ready to port over to the JavaScript viz!
 write.csv(route[,c("fips", "name", "long", "lat", "tz", "area", "children", "distance")], "../data/optimal_route.csv", row.names = F)

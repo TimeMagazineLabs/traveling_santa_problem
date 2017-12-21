@@ -13,7 +13,7 @@
   "keywords": [
     "TSP"
   ],
-  "author": "Chris Wilson, Dave Johnson",
+  "author": "Chris Wilson",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/TimeMagazine/travelling_santa_problem/issues"

@@ -6,6 +6,8 @@ var tzlookup = require('tz-lookup');
 var timezone_key = 1;
 var timezones = {};
 
+var square_miles_per_square_meters = 1 / 2589988.11;
+
 // ACS data
 var children = {};
 
@@ -45,14 +47,11 @@ geojson.features.forEach(county => {
 	counties.push({
 		fips:  county.properties.GEOID,
 		name:  info.name + ", " + info.st,
-		// st:    info.st,
-		state: info.state,
 		long:   centroid[0],
 		lat:   centroid[1],
 		tz: timezones[timezone],
-		area:  county.properties.ALAND,
-		population: population.total_population,
-		children: Math.round(population.total_population * population.under_five / 100 + population.total_population * population.five_to_nine / 100)
+		area:  county.properties.ALAND * square_miles_per_square_meters,
+		children: Math.round((population.total_population * population.under_five / 100 + population.total_population * population.five_to_nine / 100) * 0.9)
 	});
 });
 
