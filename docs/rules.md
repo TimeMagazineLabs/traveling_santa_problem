@@ -10,5 +10,5 @@ We're eager to see if anyone can produce a more efficient route for Santa to vis
 + You may use any language or method to compute the route, such as a [Hamiltonian_path](https://en.wikipedia.org/wiki/Hamiltonian_path). But all code needs to be reproducible by other users, so please stay away from proprietary software. Sorry, Mathematica users!
 + Submissions should include a CSV file called `optimal_route.csv` in the same general format as [ours](data/optimal_route.csv)--a file with one line for each county in the order that Santa visits them.
 + Right now, Santa's travel time is calculated as the [distance in a matrix](https://math.stackexchange.com/questions/2573350/estimating-distance-to-travel-to-each-household-in-a-county) of all the children in 50% of the county's land mass--`sqrt(children * area)`. You may either use this formula or propose a better one.
-+ Please include a brief writeup of your approach in the README and a calculation of the total time it takes Santa to visit each child. The time to beat is 2 hours and 3 minutes. Good luck!
++ Please include a brief writeup of your approach in the README and a calculation of the total time it takes Santa to visit each child, including a link to the [TIME article](http://time.com/5072619/santa-tracker-christmas-eve/) in anything you post. The time to beat is 2 hours and 3 minutes. Good luck!
 

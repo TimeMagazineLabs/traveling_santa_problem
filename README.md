@@ -1,6 +1,6 @@
 # The Travelling Santa Problem
 
-How many households in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each one as quickly as possible?
+How many children in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each one as quickly as possible?
 
 # Overview
 There are 3,108 counties in the continental United States, and Santa has to visit each one of them. That divides this problem into three parts:

@@ -40,16 +40,10 @@ print(prettyNum(sum(distances), big.mark=","))
 #142,651, which matches the output from the previous script
 
 print(prettyNum(sum(route$area), big.mark=","))
-#2,955,008 looks right. Wikipedia says 3,119,885, but we're not counting water
+#2,955,009 looks right. Wikipedia says 3,119,885, but we're not counting water
 
-route$children <- round(route$children)
-
-#print(paste("total distance", prettyNum(sum(route$distance), big.mark=",")))
-print(paste("total children", prettyNum(sum(route$children), big.mark=",")))
+print(paste("total children", prettyNum(sum(route$children / 0.9), big.mark=",")))
 # The Census reports 40,138,328, but they're counting AK, HI and PR
-
-# Let's correct for the number of children who observe Xmas (90%) ahead of time
-route$children <- round(route$children * 0.9)
 
 # We're ready to port over to the JavaScript viz!
 write.csv(route[,c("fips", "name", "long", "lat", "tz", "area", "children", "distance")], "../data/optimal_route.csv", row.names = F)

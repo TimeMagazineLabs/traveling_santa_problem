@@ -63,12 +63,12 @@ for (i in 1:3) {
   tour <- solve_TSP(atsp, method = "farthest_insertion", two_opt=TRUE, rep=3)
   performance <- list(id=id, distance=tour_length(tour))
   distances <- rbind(distances, performance)
-  path_labels <- c("Aroostook County, ME", labels(cut_tour(tour, end_start)), "San Diego County, CA")
-  path_ids <- match(path_labels, labels(tsp))
+  path_labels <- c("Aroostook, ME", labels(cut_tour(tour, end_start)), "San Diego, CA")
+  path_ids <- match(path_labels, labels)
   tours[[id]] = path_ids
 }
 
-
+#map and save all three routes
 for (i in 1:3) {
   id = paste("farthest_insertion", i, sep="_");
   map = plot_county_tour(counties, tours[id], id, print_map=T)
