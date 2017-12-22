@@ -1,11 +1,11 @@
-# The Travelling Santa Problem
+# The Traveling Santa Problem
 
-How many children in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each one as quickly as possible?
+How many children in the continental United States does Santa need to visit on Christmas, and what's the optimal route for him and his reindeer to hit each one as quickly as possible? This is all the code for [TIME's attempt to optimize Santa's route](http://time.com/5072619/santa-tracker-christmas-eve/).
 
 # Overview
 There are 3,108 counties in the continental United States, and Santa has to visit each one of them. That divides this problem into three parts:
 
-1. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Travelling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers since 1930. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor computer's processor.
+1. What is the optimal route through those 3,108 counties so that Santa wastes as little time as possible in transit? This is known as the ["Traveling Salesman Problem"](https://en.wikipedia.org/wiki/Travelling_salesman_problem) and has occupied mathematicians, computer scientists and other researchers since 1930. A variety of solutions exist with varying levels of accuracy, complexity and abuse to your poor computer's processor.
 
 2. Assuming Santa delivers to children age 9 and under, which is around when belief in Santa drops off, how many children does he have to visit in each county to make sure everyone gets their presents? Using a combination of Census data and polling data on how many families celebrate Christmas, we produced an estimate for each county.
 

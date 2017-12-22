@@ -56,8 +56,10 @@ tours = list()
 
 # we ran this hundreds of times in a cluster, but keeping to three here
 # so as not to frag your processor
+N_TRIALS = 25
 
-for (i in 1:3) {
+
+for (i in 1:N_TRIALS) {
   id = paste("farthest_insertion", i, sep="_");
   print(id);
   tour <- solve_TSP(atsp, method = "farthest_insertion", two_opt=TRUE, rep=3)
@@ -69,7 +71,7 @@ for (i in 1:3) {
 }
 
 #map and save all three routes
-for (i in 1:3) {
+for (i in 1:N_TRIALS) {
   id = paste("farthest_insertion", i, sep="_");
   map = plot_county_tour(counties, tours[id], id, print_map=T)
   route <- get_county_route(counties, tours[id])
