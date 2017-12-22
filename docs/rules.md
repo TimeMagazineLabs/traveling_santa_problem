@@ -1,4 +1,4 @@
-#  The Rules
+#  Submission Guidelines
 
 We're eager to see if anyone can produce a more efficient route for Santa to visit each county in the continental U.S. than ours, which takes **2 hours and 3 minutes**. If you think you can beat that, please email a link to your code to Chris Wilson at [chris.wilson@time.com](mailto:chris.wilson@time.com).
 

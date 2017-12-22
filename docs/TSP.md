@@ -4,7 +4,7 @@
 
 If a traveling salesman has to visit a certain number of cities across a region and wants to minimize the total distance she has to travel to reach them all, what is the optimal route she should take? This is such a famous problem in mathematics that there are any number of papers and tutorials out there that offer solutions in a variety of methods.
 
-Our task is to compute the *pro bono* salesman Santa Claus' route to each of the 3,108 counties in the continental United States, beginning in [Aroostook County, Maine](https://en.wikipedia.org/wiki/Aroostook_County,_Maine), the northeastern-most county in the U.S. For what it's worth, the [number of possible solutions](http://math.stackexchange.com/questions/725396/how-many-routes-possible-in-the-traveling-salesman-problem-with-n-cities-and) is `(n-1)!/2`, which, according to Mathematica--the only program that seems willing to entertain the idea of taking a factorial of 3,108--is 1.568 * 10^9503. *We're definitely not going to try all of them.*
+Our task is to compute the *pro bono* salesman Santa Claus' route to each of the 3,108 counties in the continental United States, beginning in [Aroostook County, Maine](https://en.wikipedia.org/wiki/Aroostook_County,_Maine), the northeastern-most county in the U.S--and ending in San Diego, the southwestern-most county. For what it's worth, the [number of possible solutions](http://math.stackexchange.com/questions/725396/how-many-routes-possible-in-the-traveling-salesman-problem-with-n-cities-and) is `(n-1)!/2`, which, according to Mathematica--the only program that seems willing to entertain the idea of taking a factorial of 3,108--is 1.568 * 10^9503. *We're definitely not going to try all of them.*
 
 ## Getting to work
 
@@ -59,7 +59,7 @@ The [travelling_santa.R](../R/traveling_santa.R) script runs the distance matrix
 
 Fortunately, the authors of the TSP library wrote an [extremely detailed paper](https://cran.r-project.org/web/packages/TSP/vignettes/TSP.pdf) outlining different ways to modify the algorithms, including setting start and end points, resembling a [Hamiltonian path](http://mathworld.wolfram.com/HamiltonianPath.html). The script [traveling_santa_one_way.R](../R/traveling_santa_one_way.R) implements their method.
 
-In all tests, the "farthest insertion method" produced the shortest (and most coherent) paths by a significant margin. So this script next runs the distance matrix through that algorithm three times in search of the best solution. (We actually ran it many more times than that, but we're setting it to three here to save you at least a little time.) *Still, this will probably take about an hours.* When it's done, it maps them all and writes both the paths and the maps to the [R/routes](R/routes) directory. The shortest path is also written with the filename "optimal_path."
+In all tests, the "farthest insertion method" produced the shortest (and most coherent) paths by a significant margin. So this script next runs the distance matrix through that algorithm three times in search of the best solution. (We actually ran it many more times than that, but we're setting it to three here to save you at least a little time.) *Still, this will probably take about an hours.* When it's done, it maps them all and writes both the paths and the maps to the [R/routes](../R/routes) directory. The shortest path is also written with the filename "optimal_path."
 
 The `distances` list will store the distance of each attempt if you want to see how each run performed.
 
