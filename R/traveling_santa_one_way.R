@@ -56,7 +56,7 @@ tours = list()
 
 # we ran this hundreds of times in a cluster, but keeping to three here
 # so as not to frag your processor
-N_TRIALS = 25
+N_TRIALS = 3
 
 
 for (i in 1:N_TRIALS) {

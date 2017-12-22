@@ -44,9 +44,9 @@ I've also written a function to map the route in the [lib](R/lib) directory.
 	#initialize the tsp object. This does not compute the route, it just loads the data needed to do so 
 	tsp <- TSP(dist.mx, labels=labels)
 
-	#1145 is the index of Aroostook County, Maine, where Santa will stop first
-	tour <- solve_TSP(tsp, method = "nn", start = 1145)
-
+	# get the starting index
+	start_index = which(labels == "Aroostook, ME")
+	tour <- solve_TSP(tsp, method = "nn", start = start_index)
 	plot_county_tour(counties, tour, print_map=T)
 
 It works!
@@ -59,7 +59,7 @@ The [travelling_santa.R](../R/traveling_santa.R) script runs the distance matrix
 
 Fortunately, the authors of the TSP library wrote an [extremely detailed paper](https://cran.r-project.org/web/packages/TSP/vignettes/TSP.pdf) outlining different ways to modify the algorithms, including setting start and end points, resembling a [Hamiltonian path](http://mathworld.wolfram.com/HamiltonianPath.html). The script [traveling_santa_one_way.R](../R/traveling_santa_one_way.R) implements their method.
 
-In all tests, the "farthest insertion method" produced the shortest (and most coherent) paths by a significant margin. So this script next runs the distance matrix through that algorithm three times in search of the best solution. (We actually ran it many more times than that, but we're setting it to three here to save you at least a little time.) *Still, this will probably take about an hours.* When it's done, it maps them all and writes both the paths and the maps to the [R/routes](../R/routes) directory. The shortest path is also written with the filename "optimal_path."
+In all tests, the "farthest insertion method" produced the shortest (and most coherent) paths by a significant margin. So this script next runs the distance matrix through that algorithm three times in search of the best solution. (We actually ran it many more times than that, but we're setting it to three here to save you at least a little time.) *Still, this will probably take about an hour.* When it's done, it maps them all and writes both the paths and the maps to the [R/routes](../R/routes) directory. The shortest path is also written with the filename "optimal_path."
 
 The `distances` list will store the distance of each attempt if you want to see how each run performed.
 

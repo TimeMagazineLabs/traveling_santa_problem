@@ -6,10 +6,6 @@ sources/counties/*
 R/routes
 shp/*.*
 stashed
-sources/*.sav
-R/lib/TSP/
-R/packrat/lib*/
-R/route*
 
 # Logs
 logs
