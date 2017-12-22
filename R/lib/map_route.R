@@ -36,7 +36,7 @@ plot_county_tour <- function(coordinates, tour_order, title="Santa's Route", pri
   
   # Plot the path in one fell swoop. Let's color it according to its progress from start to end, red to green
   p <- p + geom_path(data = tour_coordinates, aes(x= long, y = lat, color=tour_order), size=0.5) +
-    scale_colour_gradientn( colours = c( mypalette<-brewer.pal(9,"Spectral")),
+    scale_colour_gradientn( colours = c( mypalette<-rev(brewer.pal(9,"Spectral"))),
                             breaks  = c( 0, NROW(tour_coordinates) / 2, NROW(tour_coordinates)),
                             limits  = c( 0, NROW(tour_coordinates)))
   p <- p + theme(legend.position="none")
