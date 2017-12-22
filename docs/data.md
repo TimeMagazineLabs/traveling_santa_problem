@@ -2,7 +2,7 @@
 
 ## Getting the coordinates and area for counties
 
-To regenerate the geography data that lives in `geography/data`, you just need a few Node dependencies. And [Node](https://nodejs.org/en/) itself, of course.
+To regenerate the geography data that lives in the `data` directory, you just need a few Node dependencies. And [Node](https://nodejs.org/en/) itself, of course.
 
 	npm install 			# D3 and a few other libraries we need to compute centroids
 	npm install -g mapshaper 	# neatly converts SHP files to GeoJSON or TopoJSON formats from the command line
