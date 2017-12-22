@@ -19,7 +19,7 @@ The county map comes from the Census Bureau's [Cartographic Boundary Shapefiles]
 
 This will unzip a bunch of files into the `counties` subdirectory since [Esri's Shapefile](https://en.wikipedia.org/wiki/Shapefile) format is divided into several parts. If you want to view what the raw maps look like, [QGIS](http://www.qgis.org/en/site/forusers/download.html) is a free program that can open and display the `.shp` file. But you don't have to, because we're only using code that is executable from the command line. This ensures that the process can be fully documented and adheres to the spirit of [Bostock's Law](https://bost.ocks.org/mike/make/). It's files all the way down.
 
-First, we're going to use `mapshaper` to modify these Shapefiles to exclude Alaska, Hawaii and U.S. territories--not because we believe their children to be poorly behaved, but because the Traveling Salesman Problem is most relevant here to the continuous 48 states and Washington, D.C. (While we could just ignore these regions, striking them from the map makes it display better.) Fortunately, `mapshaper` accepts a JavaScript string as an argument, which we can use to filter the locations down to those with a [state FIPS code](https://www.census.gov/geo/reference/ansi_statetables.html) between "01" and "56", which run from Alabama to Wyoming and include D.C. but no other non-states. We just have to skip "02" (Alaska) and "15" (Hawaii). We're also going to filter the fields down to the FIPS id and each county's land area.
+First, we're going to use `mapshaper` to modify these Shapefiles to exclude Alaska, Hawaii and U.S. territories--not because we believe their children to be poorly behaved, but because the Traveling Salesman Problem is most relevant here to the contiguous 48 states and Washington, D.C. (While we could just ignore these regions, striking them from the map makes it display better.) Fortunately, `mapshaper` accepts a JavaScript string as an argument, which we can use to filter the locations down to those with a [state FIPS code](https://www.census.gov/geo/reference/ansi_statetables.html) between "01" and "56", which run from Alabama to Wyoming and include D.C. but no other non-states. We just have to skip "02" (Alaska) and "15" (Hawaii). We're also going to filter the fields down to the FIPS id and each county's land area.
 
 	mapshaper counties/cb_2016_us_county_20m.shp -filter 'parseInt(STATEFP) <= 56 && STATEFP != "02" && STATEFP != "15"' -filter-fields GEOID,ALAND -o format=shapefile counties/counties.shp
 	# Output should say "[filter] Retained 3,108 of 3,220 features"
@@ -30,7 +30,7 @@ While we're at it, let's generate the topoJSON file of the counties for the visu
 
 ## Centroids and Population
 
-The next step is to convert the SHP files we just made into a JSON document that contains each county's geographic coordinates, ALAND data, the geographic center of each location, and the number of children. The `mapshaper` tool conveniently includes the metadata from the original Shapefile for each state.
+The next step is to convert the SHP files we just made into JSON and CSV documents that contain each county's geographic coordinates, land area data, the geographic center of each location, and the number of children. The `mapshaper` tool conveniently includes the metadata from the original Shapefile for each state.
 
 	mapshaper counties/counties.shp -o format=geojson ../data/counties.geo.json
 
