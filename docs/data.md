@@ -36,7 +36,7 @@ The next step is to convert the SHP files we just made into JSON and CSV documen
 
 ### County Data
 
-The Node script that will generate our output will match the FIPS codes from the GeoJSON file to the Census Bureau's [most recent definitions](https://www.census.gov/geo/reference/codes/cou.html), included here in [sources/fips.json](sources/fips.json) directory, so that we have detailed information for each county. (To wit: Even though that data is mostly baked into the Shapefiles, one can never be too careful in checking that the erstwhile Shannon County, SD has been correctly rebranded as [Oglala Lakota](https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota).)
+The Node script that will generate our output will match the FIPS codes from the GeoJSON file to the Census Bureau's [most recent definitions](https://www.census.gov/geo/reference/codes/cou.html), included here in [../sources/fips.json](sources/fips.json) file, so that we have detailed information for each county. (To wit: Even though that data is mostly baked into the Shapefiles, one can never be too careful in checking that the erstwhile Shannon County, SD has been correctly rebranded as ["Oglala Lakota"](https://en.wikipedia.org/wiki/Oglala_Lakota_County,_South_Dakota).)
 
 ### Centroids
 
@@ -44,7 +44,7 @@ We need to compute the central point of each county in order to draw a route bet
 
 ### Children
 
-To get the number of children in each county by age, we need table "S0101: AGE AND SEX" from the American Community Survey, using the five-year 2012-2016 dataset. This table is included in [/sources](/sources) since it can't be programatically downloaded, but you can view it [here](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/16_5YR/S0101/0100000US.05000.003).
+To get the number of children in each county by age, we need table "S0101: AGE AND SEX" from the American Community Survey, using the five-year 2012-2016 dataset. This table is included in the [sources](/sources) directory since it can't be programatically downloaded, but you can view it [here](https://factfinder.census.gov/bkmk/table/1.0/en/ACS/16_5YR/S0101/0100000US.05000.003).
 
 These files can be tedious to work with since you have to manually check that you're using the right fields, but the script will take care of that. Remember, we're going to reduce the total number of children to 90% based on [estimates of how many celebrate Christmas](http://www.pewresearch.org/fact-tank/2015/12/21/5-facts-about-christmas-in-america/).
 
