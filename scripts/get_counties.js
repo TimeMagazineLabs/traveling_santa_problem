@@ -11,7 +11,7 @@ var square_miles_per_square_meters = 1 / 2589988.11;
 // ACS data
 var children = {};
 
-var ACS = d3.csvParse(fs.readFileSync("../sources/ACS_16_5YR_S0101/ACS_16_5YR_S0101_with_ann.csv", "utf8"));
+var ACS = d3.csvParse(fs.readFileSync("../sources/ACS_17_5YR_S0101/ACS_17_5YR_S0101_with_ann.csv", "utf8"));
 
 ACS.forEach(d => {
 	children[d['GEO.id2']] = {

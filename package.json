@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/TimeMagazine/travelling_santa_problem#readme",
   "dependencies": {
-    "d3": "^4.4.0",
+    "d3": "^5.7.0",
     "moment-timezone": "^0.5.14",
     "tz-lookup": "^6.1.3"
   }
